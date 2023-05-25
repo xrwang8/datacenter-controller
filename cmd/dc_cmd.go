@@ -9,7 +9,6 @@ import (
 	"datacenter-controller/pkg/controller"
 
 	"github.com/spf13/cobra"
-	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/util/homedir"
@@ -27,7 +26,7 @@ var ServeCmd = &cobra.Command{
 		if err != nil {
 			panic(err)
 		}
-		_, cfg, err := initClient()
+		cfg, err := initKubeConfig()
 		if err != nil {
 			klog.Fatalf("Error building kubernetes clientset: %s", err.Error())
 		}
@@ -49,7 +48,7 @@ var ServeCmd = &cobra.Command{
 	},
 }
 
-func initClient() (*kubernetes.Clientset, *rest.Config, error) {
+func initKubeConfig() (*rest.Config, error) {
 	var err error
 	var config *rest.Config
 	// inCluster（Pod）、KubeConfig（kubectl）
@@ -69,9 +68,5 @@ func initClient() (*kubernetes.Clientset, *rest.Config, error) {
 		}
 	}
 
-	kubeclient, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		return nil, config, err
-	}
-	return kubeclient, config, nil
+	return config, nil
 }
