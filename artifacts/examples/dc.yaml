@@ -1,0 +1,16 @@
+apiVersion: datacenter.pcl.ac.cn/v1alpha1
+kind: DataCenter
+metadata:
+  name: xuchang
+spec:
+  resourceInfo:
+    memAllocatable: 10000
+    memCapacity: 100000000000  #单位Byte
+    volumeCntAllocatable: 100
+    volumeCntCapacity: 100
+  scheduler: {}
+status:
+  idle:
+    memAllocatable: 10000
+    volumeCntAllocatable: 60
+  status: Ready

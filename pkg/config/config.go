@@ -5,9 +5,7 @@ import (
 )
 
 func InitConfig() {
-
 	viper.SetDefault("MQ_SERVER", "10.0.102.10")
 	viper.SetDefault("MQ_PORT", "9876")
-
 	viper.AutomaticEnv()
 }
