@@ -5,6 +5,7 @@ import (
 	"datacenter-controller/mq"
 	clientset "datacenter-controller/pkg/client/clientset/versioned"
 	"encoding/json"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/apache/rocketmq-client-go/v2/consumer"
@@ -47,6 +48,7 @@ func (c *Controller) Subscription(topic string) error {
 			dataCenter.Status.Idle.VolumeCntAllocatable = volumeCntAllocatable
 			dataCenter.Status.Idle.MemAllocatable = memAllocatable
 			c.clientset.DatacenterV1alpha1().DataCenters().Update(context.Background(), dataCenter, v1.UpdateOptions{})
+			c.clientset.DatacenterV1alpha1().DataCenters().UpdateStatus(context.Background(), dataCenter, v1.UpdateOptions{})
 			klog.Infof("update %v  datacenter metric %+v:", volumeMetrics.SubCenterId, dataCenter.Spec.ResourceInfo)
 		}
 		return consumer.ConsumeSuccess, nil
