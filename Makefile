@@ -1,5 +1,5 @@
 # Image URL to use all building/pushing image targets
-IMG ?= datacenter-controller:latest
+IMG ?= registry.cnbita.com:5000/fusionhub/datacenter-controller:latest
 
 
 
